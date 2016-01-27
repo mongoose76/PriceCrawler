@@ -1,10 +1,24 @@
-def siteID = 'emag';
+import static groovy.json.JsonOutput.*
 
-// initialize parse template
-def ITemplate tpl = TemplateFactory.get(siteID);
+def search_keyword = 'ju6400';
 
-// parse the contents and fetch product information
-def results = tpl.run();
+def sites = [
+        //'emag',
+        'pcgarage',
+        'cel'
+]
 
-// print results
-println "results ============> " + results;
+def closure = {
+
+
+    // initialize parse template
+    def ITemplate tpl = TemplateFactory.get(it, search_keyword);
+
+    // parse the contents and fetch product information
+    def results = tpl.run();
+
+    // print results
+    println it + " ============> " + prettyPrint(toJson(results));
+}
+
+sites.each closure
